@@ -34,22 +34,65 @@ The maximum possible groupings of adjacent ones are already shown in the figure.
 
 **Procedure**
 
-/* write all the steps invloved */
+Define Inputs/Outputs: Inputs: J (Set), K (Reset), c1k (clock); Outputs: q, qbar (~q).
+
+Initialization: Set q = 0 and qbar = 1 at the start of the simulation.
+
+JK Flip-Flop Logic: On posedge c1k, compute q
+
+Complementary Output: Update qbar = ~q to maintain complementarity.
+
+Testbench: Simulate with combinations of J, K, and c1k to verify JK Flip-Flop functionality.
+
 
 **PROGRAM**
-<img width="563" height="137" alt="Screenshot 2025-10-16 204529" src="https://github.com/user-attachments/assets/747e3dc1-0a70-4a19-97bf-550aee621e6e" />
 
-
-/* Program for flipflops and verify its truth table in quartus using Verilog programming. Developed by: SAAGAR S  RegisterNumber:212225040351
+/* Program for flipflops and verify its truth table in quartus using Verilog programming. Developed by: SAAGAR S RegisterNumber:212225040351
 */
 
+module jk(j, k, clk, rst, q);
+
+  input j, k, clk, rst;
+  
+  output reg q;
+  
+
+  always @(posedge clk or posedge rst) begin
+  
+    if (rst)
+    
+      q <= 0;
+      
+    else if (j == 0 && k == 0)
+    
+      q <= q;
+      
+    else if (j == 0 && k == 1)
+    
+      q <= 0;
+      
+    else if (j == 1 && k == 0)
+    
+      q <= 1;
+      
+    else if (j == 1 && k == 1)
+    
+      q <= ~q;
+      
+  end
+  
+endmodule
+
+
 **RTL LOGIC FOR FLIPFLOPS**
-<img width="1167" height="563" alt="Screenshot 2025-10-16 204549" src="https://github.com/user-attachments/assets/74731697-36e8-42fa-bffb-c94a56a85587" />
+
+<img width="1588" height="936" alt="Screenshot 2026-06-02 183641" src="https://github.com/user-attachments/assets/8744f6c1-d163-4ca4-97f8-4e2a4b5c2dd0" />
 
 
 **TIMING DIGRAMS FOR FLIP FLOPS**
-<img width="1176" height="599" alt="Screenshot 2025-10-16 204615" src="https://github.com/user-attachments/assets/fe25e9e7-6536-469d-b9a3-6783bd851cd2" />
+
+<img width="1800" height="962" alt="{6EC38823-6F8C-4888-ACD9-8425220AED8C}" src="https://github.com/user-attachments/assets/d55f5420-6433-4672-af1c-4dadb228b94f" />
 
 
 **RESULTS**
-Thus the basic logic gates are studied and the truth table are verified
+Thus the give experiment is verified succesfully
