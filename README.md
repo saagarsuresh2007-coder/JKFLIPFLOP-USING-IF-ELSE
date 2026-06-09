@@ -32,67 +32,56 @@ By using three variable K-Map, we can get the simplified expression for next sta
 
 The maximum possible groupings of adjacent ones are already shown in the figure. Therefore, the simplified expression for next state Qt+1t+1 is Q(t+1)=JQ(t)′+K′Q(t)Q(t+1)=JQ(t)′+K′Q(t)
 
-**Procedure**
-
-Define Inputs/Outputs: Inputs: J (Set), K (Reset), c1k (clock); Outputs: q, qbar (~q).
-
-Initialization: Set q = 0 and qbar = 1 at the start of the simulation.
-
-JK Flip-Flop Logic: On posedge c1k, compute q
-
-Complementary Output: Update qbar = ~q to maintain complementarity.
-
-Testbench: Simulate with combinations of J, K, and c1k to verify JK Flip-Flop functionality.
 
 
 **PROGRAM**
-
-/* Program for flipflops and verify its truth table in quartus using Verilog programming. Developed by: SAAGAR S RegisterNumber:212225040351
+```
+/* Program for flipflops and verify its truth table in quartus using Verilog programming.
+ Developed by:SAAGAR S
+ RegisterNumber:212225040351
 */
+module de3(q, qb,j,k,clock,reset);
+    input j,k,clock,reset;
+    output reg q, qb;
+	 
+always @ (posedge (clock))
 
-module jk(j, k, clk, rst, q);
+    begin 
+        if (!reset)
+            begin
+               q <= q;
+               qb <=qb;
+            end   
+        
+else
 
-  input j, k, clk, rst;
-  
-  output reg q;
-  
-
-  always @(posedge clk or posedge rst) begin
-  
-    if (rst)
-    
-      q <= 0;
-      
-    else if (j == 0 && k == 0)
-    
-      q <= q;
-      
-    else if (j == 0 && k == 1)
-    
-      q <= 0;
-      
-    else if (j == 1 && k == 0)
-    
-      q <= 1;
-      
-    else if (j == 1 && k == 1)
-    
-      q <= ~q;
-      
-  end
-  
+begin
+               if (j == 0 && k == 0)
+                    begin
+                    q <= q;
+                    qb <= qb;
+                    end 
+		else if (j != k)
+                    begin
+                    q <= j;
+                    qb <= k;
+                    end
+               else if (j == 1 && k == 1) 
+                    begin 
+                    q <= ~q; 
+                    qb <= ~qb; 
+                    end 
+            end
+end  
 endmodule
-
-
+```
 **RTL LOGIC FOR FLIPFLOPS**
-
-<img width="1588" height="936" alt="Screenshot 2026-06-02 183641" src="https://github.com/user-attachments/assets/8744f6c1-d163-4ca4-97f8-4e2a4b5c2dd0" />
+<img width="1523" height="800" alt="image" src="https://github.com/user-attachments/assets/83b5f833-79e6-4f31-8e2b-7107e0e52ba9" />
 
 
 **TIMING DIGRAMS FOR FLIP FLOPS**
-
-<img width="1800" height="962" alt="{6EC38823-6F8C-4888-ACD9-8425220AED8C}" src="https://github.com/user-attachments/assets/d55f5420-6433-4672-af1c-4dadb228b94f" />
+<img width="1657" height="802" alt="image" src="https://github.com/user-attachments/assets/ca01028d-ed41-410e-8b3c-5bda4e1156d9" />
 
 
 **RESULTS**
-Thus the give experiment is verified succesfully
+Thus,The JK FlipFlop is implemented and verified sucessfully.
